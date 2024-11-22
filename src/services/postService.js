@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const API_URL = "/api/posts";
+// const API_URL = "/api/posts";
+const API_URL = "https://crud-insta-backend-1.onrender.com/api/posts";
 
 export const createPost = async (postData) => {
   const response = await axios.post(API_URL, postData, {
