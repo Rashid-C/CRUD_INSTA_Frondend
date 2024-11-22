@@ -60,7 +60,6 @@ const Navbar = () => {
             </div>
           </div>
 
-          {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-4">
             {navLinks.map((link) => {
               const Icon = link.icon;
@@ -80,7 +79,6 @@ const Navbar = () => {
               );
             })}
 
-            {/* Notification Bell */}
             <button className="relative p-2 text-gray-300 hover:text-white rounded-lg hover:bg-white/10 transition-colors duration-200">
               <Bell className="w-5 h-5" />
               {notifications > 0 && (
@@ -91,7 +89,6 @@ const Navbar = () => {
             </button>
           </div>
 
-          {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center space-x-4">
             <button className="relative p-2 text-gray-300 hover:text-white rounded-lg hover:bg-white/10">
               <Bell className="w-5 h-5" />
@@ -115,13 +112,11 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile Navigation */}
       <div
         className={`md:hidden transition-all duration-300 ease-in-out ${
           isOpen ? "max-h-screen" : "max-h-0"
         } overflow-hidden`}
       >
-        {/* Mobile Search */}
         <div className="p-4">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />

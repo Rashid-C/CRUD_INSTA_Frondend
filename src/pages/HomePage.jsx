@@ -5,7 +5,6 @@ const HomePage = () => {
   return (
     <div className="min-h-[calc(100vh-80px)] flex items-center justify-center p-4 bg-gradient-to-br from-gray-900 to-black">
       <div className="max-w-4xl w-full mx-auto text-center space-y-8 bg-black/40 backdrop-blur-lg rounded-2xl p-8 border border-white/10 shadow-xl">
-        {/* Hero Section */}
         <div className="space-y-6">
           <div className="flex justify-center mb-6">
             <Camera className="w-16 h-16 text-purple-500" />

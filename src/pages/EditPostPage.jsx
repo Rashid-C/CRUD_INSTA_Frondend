@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getPostById, updatePost } from "../services/postService";
 
-
 const EditPostPage = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");

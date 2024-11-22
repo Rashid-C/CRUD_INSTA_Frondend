@@ -22,7 +22,7 @@ const Layout = () => {
         </div>
       </main>
 
-      {/* Animated background gradient */}
+
       <div className="fixed inset-0 -z-10 bg-gradient-to-br from-purple-900/20 to-pink-900/20 animate-gradient" />
     </div>
   );

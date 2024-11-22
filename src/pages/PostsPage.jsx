@@ -1,41 +1,24 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { getPosts, deletePost } from "../services/postService.js";
-import { PlusCircle, RefreshCw, Trash2, Edit2 } from "lucide-react";
+import { useSelector, useDispatch } from "react-redux";
+import { PlusCircle, RefreshCw, Trash2, Edit2, X } from "lucide-react";
+import { fetchPosts, removePost } from "../store/postSlice.js";
 
 const PostsPage = () => {
-  const [posts, setPosts] = useState([]);
+  const dispatch = useDispatch();
+  const { items: posts, status, error } = useSelector((state) => state.posts);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [selectedImage, setSelectedImage] = useState(null);
+
   const baseUrl = "https://crud-insta-backend-1.onrender.com";
 
   useEffect(() => {
-    fetchPosts();
-  }, []);
-
-  const fetchPosts = async () => {
-    try {
-      setLoading(true);
-      const data = await getPosts();
-      setPosts(data);
-      console.log(data);
-    } catch (err) {
-      setError("Failed to fetch posts");
-      console.error("Fetch error:", err);
-    } finally {
-      setLoading(false);
-    }
-  };
+    dispatch(fetchPosts()).then(() => setLoading(false));
+  }, [dispatch]);
 
   const handleDeletePost = async (postId) => {
-    if (window.confirm("Are you sure you want to delete this post?")) {
-      try {
-        await deletePost(postId);
-        setPosts(posts.filter((post) => post._id !== postId));
-      } catch (err) {
-        setError("Failed to delete post");
-        console.error("Delete error:", err);
-      }
+    if (window.confirm("Are you sure?")) {
+      dispatch(removePost(postId));
     }
   };
 
@@ -43,6 +26,14 @@ const PostsPage = () => {
     if (!imagePath) return "/placeholder.png";
     if (imagePath.startsWith("http")) return imagePath;
     return `${baseUrl}/${imagePath.replace(/^\/+/, "")}`;
+  };
+
+  const openImagePopup = (imageUrl) => {
+    setSelectedImage(imageUrl);
+  };
+
+  const closeImagePopup = () => {
+    setSelectedImage(null);
   };
 
   if (loading) {
@@ -55,6 +46,30 @@ const PostsPage = () => {
 
   return (
     <div className="min-h-screen bg-[#0B1121] text-gray-100">
+      {selectedImage && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-80 p-4"
+          onClick={closeImagePopup}
+        >
+          <div
+            className="relative w-[80%] max-w-2xl aspect-video"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={closeImagePopup}
+              className="absolute -top-8 right-0 bg-red-500 text-white rounded-full p-1 hover:bg-red-600 z-60"
+            >
+              <X className="w-5 h-5" />
+            </button>
+            <img
+              src={selectedImage}
+              alt="Popup"
+              className="w-full h-full object-cover rounded-lg shadow-2xl"
+            />
+          </div>
+        </div>
+      )}
+
       <div className="container mx-auto px-4 py-8">
         <div className="flex justify-between items-center mb-8">
           <div>
@@ -94,7 +109,7 @@ const PostsPage = () => {
               {error}
             </span>
             <button
-              onClick={fetchPosts}
+              onClick={() => dispatch(fetchPosts())}
               className="inline-flex items-center gap-2 bg-red-500/20 text-red-400 px-4 py-2 rounded-lg hover:bg-red-500/30 transition-colors duration-200"
             >
               <RefreshCw className="w-4 h-4" />
@@ -129,7 +144,10 @@ const PostsPage = () => {
                 key={post._id}
                 className="group bg-white/5 backdrop-blur-sm rounded-lg overflow-hidden hover:shadow-lg hover:shadow-purple-500/10 transition duration-300"
               >
-                <div className="relative h-48 overflow-hidden">
+                <div
+                  className="relative h-48 overflow-hidden cursor-pointer"
+                  onClick={() => openImagePopup(getImageUrl(post.image))}
+                >
                   <img
                     src={getImageUrl(post.image)}
                     alt={post.title}
