@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+<<<<<<< HEAD
 import { useSelector, useDispatch } from "react-redux";
 import { PlusCircle, RefreshCw, Trash2, Edit2, X } from "lucide-react";
 import { fetchPosts, removePost } from "../store/postSlice.js";
@@ -7,6 +8,15 @@ import { fetchPosts, removePost } from "../store/postSlice.js";
 const PostsPage = () => {
   const dispatch = useDispatch();
   const { items: posts, status, error } = useSelector((state) => state.posts);
+=======
+import { useSelector, useDispatch } from 'react-redux';
+import { PlusCircle, RefreshCw, Trash2, Edit2, X } from "lucide-react";
+import { fetchPosts, removePost } from '../store/postSlice.js'
+
+const PostsPage = () => {
+  const dispatch = useDispatch();
+  const { items: posts, status, error } = useSelector(state => state.posts);
+>>>>>>> d0bc3ec2be50f58b062607ba55098bfe263d7069
   const [loading, setLoading] = useState(true);
   const [selectedImage, setSelectedImage] = useState(null);
 
@@ -46,6 +56,7 @@ const PostsPage = () => {
 
   return (
     <div className="min-h-screen bg-[#0B1121] text-gray-100">
+<<<<<<< HEAD
       {selectedImage && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-80 p-4"
@@ -57,13 +68,33 @@ const PostsPage = () => {
           >
             <button
               onClick={closeImagePopup}
+=======
+      {/* Image Popup */}
+      {selectedImage && (
+        <div 
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-80 p-4"
+          onClick={closeImagePopup}
+        >
+          <div 
+            className="relative w-[80%] max-w-2xl aspect-video"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button 
+              onClick={closeImagePopup} 
+>>>>>>> d0bc3ec2be50f58b062607ba55098bfe263d7069
               className="absolute -top-8 right-0 bg-red-500 text-white rounded-full p-1 hover:bg-red-600 z-60"
             >
               <X className="w-5 h-5" />
             </button>
+<<<<<<< HEAD
             <img
               src={selectedImage}
               alt="Popup"
+=======
+            <img 
+              src={selectedImage} 
+              alt="Popup" 
+>>>>>>> d0bc3ec2be50f58b062607ba55098bfe263d7069
               className="w-full h-full object-cover rounded-lg shadow-2xl"
             />
           </div>
@@ -144,7 +175,11 @@ const PostsPage = () => {
                 key={post._id}
                 className="group bg-white/5 backdrop-blur-sm rounded-lg overflow-hidden hover:shadow-lg hover:shadow-purple-500/10 transition duration-300"
               >
+<<<<<<< HEAD
                 <div
+=======
+                <div 
+>>>>>>> d0bc3ec2be50f58b062607ba55098bfe263d7069
                   className="relative h-48 overflow-hidden cursor-pointer"
                   onClick={() => openImagePopup(getImageUrl(post.image))}
                 >
