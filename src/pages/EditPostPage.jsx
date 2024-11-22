@@ -26,7 +26,7 @@ const EditPostPage = () => {
         setTitle(post.title);
         setDescription(post.description);
 
-        const baseUrl = "http://localhost:5000";
+        const baseUrl = "https://crud-insta-backend-1.onrender.com";
         const fullImageUrl = post.image
           ? post.image.startsWith("http")
             ? post.image

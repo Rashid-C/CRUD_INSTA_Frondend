@@ -7,7 +7,7 @@ const PostsPage = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const baseUrl = "http://localhost:5000";
+  const baseUrl = "https://crud-insta-backend-1.onrender.com";
 
   useEffect(() => {
     fetchPosts();
