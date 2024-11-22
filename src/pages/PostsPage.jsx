@@ -19,7 +19,6 @@ const PostsPage = () => {
       const data = await getPosts();
       setPosts(data);
       console.log(data);
-      
     } catch (err) {
       setError("Failed to fetch posts");
       console.error("Fetch error:", err);
